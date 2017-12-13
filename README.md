@@ -31,6 +31,6 @@ A node will be related to other nodes using edges. These edges will describe the
 * "Uses": A "uses" relation between node a and node b means that a uses b (to get its job done). 
 * "RunsOn": A "runsOn" relation beweeen node a and node b means that node a runs on node b. Further more it also means that node b is a "Device".
 
-## ..which gives us the architecture metamodel
+## ..which gives us the super simple architecture metamodel
 
 ![The plan](https://raw.githubusercontent.com/BjartN/Archiman/master/docs/RelationshipGoals.PNG)
