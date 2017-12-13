@@ -1,5 +1,5 @@
 # Archiman
-Data driven architecture
+Data driven architecture - Describe your architecture once. With data.
 
 ## ...because
 The problem with most visual architecture tools like Visio is that they break down when dealing with larger architectures. You end up making multiple views of the same architecture and things become hard to maintain. Also describing the architecture is a pain when you need to drag and drop too many boxes and lines. 
