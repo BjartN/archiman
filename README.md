@@ -5,7 +5,7 @@ Data driven architecture - Describe your architecture once. With data.
 The problem with most visual architecture tools like Visio is that they break down when dealing with larger architectures. You end up making multiple views of the same architecture and things become hard to maintain. Also describing the architecture is a pain when you need to drag and drop too many boxes and lines. 
 
 ## ..so first
-The MVP is a system where I can describe the static architecture using a directed graph. It will have the following features
+The MVP is a system where I can describe the static architecture (similar to a UML component diagram) using a directed graph. It will have the following features
 
 1. I can create the architecture graph very quickly using a fancy drag and drop interface or a table (like excel)
 2. I can zoom in and out to see more and less detail of the architecture
