@@ -1,0 +1,12 @@
+
+.block{
+    border: solid 2px white;
+    padding:4px; 
+    background-color:#ececec; 
+    width:200px; 
+    position:relative;
+}
+
+.drag-target-border {
+    border: dashed 2px gray;
+}
