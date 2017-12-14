@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GraphService } from '../graph.service';
-import { Block} from '../block';
+import { Block } from '../block';
 
 @Component({
   selector: 'app-block-list',
@@ -9,15 +9,18 @@ import { Block} from '../block';
 })
 export class BlockListComponent implements OnInit {
 
-  blocks : Block[];
-  constructor(gs:GraphService) { 
+  blocks: Block[];
+  gs: GraphService;
+
+  constructor(gs: GraphService) {
+    this.gs = gs;
     this.blocks = gs.getTree();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  droppedBlockHandler(target:number, source:any){
-    alert("From " + source +" to " + target);
+  droppedBlockHandler(target: number, source: any) {
+    this.gs.addLink(source, target);
   }
 
 

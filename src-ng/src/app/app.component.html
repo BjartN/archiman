@@ -1,18 +1,19 @@
 <div class="ui attached inverted menu">
-   <div class="header item">
-   <i class="cubes icon"></i> AAARCH
+  <div class="header item">
+    <i class="cubes icon"></i> AAARCH
   </div>
-  <a class="active item">
-    Workspace 1
+  <a class="item" routerLink="/">
+    Dependency Builder
   </a>
-  <a class="item">
-    Workspace 2
-  </a>
-  <a class="item">
-    Workspace 3
+  <a class="item" routerLink="/dep">
+    Dependency Graph
   </a>
 </div>
 
-  <div class="ui container" style="width:100%">
-    <app-block-list></app-block-list>
+<div class="ui container" style="width:100%">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <router-outlet></router-outlet>
+    </div>
   </div>
+</div>
