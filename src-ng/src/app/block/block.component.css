@@ -1,10 +1,12 @@
 
 .block{
-    border: solid 2px white;
+    margin:4px;
     padding:4px; 
+    border:solid 2px transparent;
     background-color:#ececec; 
     width:200px; 
     position:relative;
+    border-radius: 10px
 }
 
 .drag-target-border {

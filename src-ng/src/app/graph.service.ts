@@ -5,20 +5,28 @@ import { DEPS } from './mock-flare';
 @Injectable()
 export class GraphService {
 
-  constructor() {
+  deps: any[];
 
+  constructor() {
+    this.deps = DEPS.map(x => x);
   }
 
   addLink(from: number, to: number) {
-    var f = DEPS.find(x => x.id == from);
-    var t = DEPS.find(x => x.id == to);
+    var map = {};
+    this.deps.forEach(x => map[x.id] = x);
+    var f = map[from];
+
+    if (f.edgeTo.indexOf(to) >= 0)
+      return;
+
+    f.edgeTo.push(to);
   }
 
   getTree(): Block[] {
-    return DEPS;
+    return this.deps;
   }
 
   getDeps(): any[] {
-    return DEPS;
+    return this.deps;
   }
 }
