@@ -1,12 +1,17 @@
 
 .block{
     margin:4px;
-    padding:4px; 
+    padding:1px; 
     border:solid 2px transparent;
-    background-color:#ececec; 
+    background-color:white; 
     width:200px; 
     position:relative;
-    border-radius: 10px
+    border-radius: 4px;
+}
+
+.block:hover {
+    cursor: move;
+    cursor:grab;
 }
 
 .drag-target-border {

@@ -49,6 +49,7 @@ export class DepGraphComponent implements OnInit {
 
     cluster(root);
 
+
     link = link
       .data(this.makeLink(root))
       .enter().append("path")
