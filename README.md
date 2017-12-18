@@ -17,6 +17,7 @@ The MVP is a system where I can describe the static architecture (similar to a U
   * An activity diagram view
   * A data entity view
 5. Create the concept of baseline and target architecture and a diff between the two
+6. Position the components in various diagrams since the auto-layout will not be perfect. (Still we keep only a single representation of the architecture)
   
 ## The graph
 
