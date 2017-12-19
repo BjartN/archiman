@@ -1,4 +1,5 @@
-export class Block{
-    id:number;
-    name:string;
+export class Block {
+    constructor(public id: number, public name: string) {
+
+    }
 }

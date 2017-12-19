@@ -1,32 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Block } from './block';
-import { DEPS } from './mock-flare';
+import { DEPS, getGraph, Node, Edge, TreeNode } from './mock-flare';
+import { SparseDirectedGraph } from './graph';
 
 @Injectable()
 export class GraphService {
 
-  deps: any[];
+  graph: SparseDirectedGraph<Node, Edge>;
 
   constructor() {
-    this.deps = DEPS.map(x => x);
+    this.graph = getGraph();
   }
 
   addLink(from: number, to: number) {
-    var map = {};
-    this.deps.forEach(x => map[x.id] = x);
-    var f = map[from];
-
-    if (f.edgeTo.indexOf(to) >= 0)
-      return;
-
-    f.edgeTo.push(to);
+    this.graph.addEdge(
+      this.graph.findOrDefault(x => x.id == from),
+      this.graph.findOrDefault(x => x.id == to),
+      new Edge("uses"));
   }
 
+  /** Get tree of "uses" relation. **/
   getTree(): Block[] {
-    return this.deps;
+    return this.graph.find(x => true).map(x => new Block(x.id, x.name));
   }
 
-  getDeps(): any[] {
-    return this.deps;
+  getDeps(): TreeNode[] {
+    var result = this.graph
+      .find(x => true)
+      .map(x => new TreeNode(x.id, x.type, x.name, this.graph.neighbours(x).map(x => x.id)));
+
+    return result;
   }
 }

@@ -1,3 +1,5 @@
+import { SparseDirectedGraph } from './graph';
+
 export const DEPS =
     [
         { id: 1, "name": "Graphs", edgeTo: [40], type: "service" },
@@ -24,3 +26,39 @@ export const DEPS =
     ]
 
 
+export function getGraph(): SparseDirectedGraph<Node, Edge> {
+
+    var g = new SparseDirectedGraph<Node, Edge>();
+
+    var map = {};
+    DEPS.forEach(x => {
+        map[x.id] = new Node(x.id, x.name, x.type)
+        g.addVertex(map[x.id]);
+    });
+
+    DEPS.forEach(x => {
+        x.edgeTo.forEach(y => {
+            g.addEdge(map[x.id], map[y], new Edge("uses"))
+        });
+    });
+
+    return g;
+}
+
+export class Node {
+    constructor(public id: number, public name: string, public type: string) {
+
+    }
+}
+
+export class Edge {
+    constructor(public type: string) {
+
+    }
+}
+
+export class TreeNode {
+    constructor(public id: number, public type: string, public name: string, public edgeTo: number[]) {
+
+    }
+}

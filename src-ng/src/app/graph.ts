@@ -1,8 +1,13 @@
 
 import * as Collections from 'typescript-collections';
 
-export class SparseDirectedGraph<TNode extends INode, TEdgeData>  {
-    adjacencyList: Collections.Dictionary<number, Collections.LinkedList<DataEdge<TNode, TEdgeData>>>;
+export type Predicate<T> = (n: T) => boolean;
+
+export class SparseDirectedGraph<TNode extends INode, TEdge>  {
+    adjacencyList = new Collections.Dictionary<number, Collections.LinkedList<Relation<TNode, TEdge>>>();
+    adjacencyListInverse = new Collections.Dictionary<number, Collections.LinkedList<Relation<TNode, TEdge>>>();
+    nodes = new Collections.Dictionary<number, TNode>();
+
     edgesCount: 0;
     firstInsertedNode: TNode;
 
@@ -17,8 +22,9 @@ export class SparseDirectedGraph<TNode extends INode, TEdgeData>  {
             this.firstInsertedNode = node;
         }
 
-
-        this.adjacencyList[node.id] = new Collections.LinkedList<DataEdge<TNode, TEdgeData>>();
+        this.adjacencyList.setValue(node.id, new Collections.LinkedList<Relation<TNode, TEdge>>());
+        this.adjacencyListInverse.setValue(node.id, new Collections.LinkedList<Relation<TNode, TEdge>>());
+        this.nodes.setValue(node.id, node);
 
         return true;
     }
@@ -28,17 +34,42 @@ export class SparseDirectedGraph<TNode extends INode, TEdgeData>  {
             return null;
         }
 
-        return this.adjacencyList[vertex.id].map(x => x.node);
+        return this.adjacencyList.getValue(vertex.id).toArray().map(x => x.to);
+    }
+
+    neighboursOf(vertex: TNode): Relation<TNode, TEdge>[] {
+        if (!this.hasVertex(vertex)) {
+            return null;
+        }
+
+        return this.adjacencyListInverse.getValue(vertex.id).toArray().map(x => x);
+    }
+
+    findRelation(f: Predicate<Relation<TNode, TEdge>>): Relation<TNode, TEdge>[] {
+        var a = [];
+        this.adjacencyList.forEach((key, value) => {
+            var r = value.toArray().forEach(x => {
+                if (f(x)) {
+                    a.push(x);
+                }
+            });
+        })
+        return a;
+    }
+
+    find(f: Predicate<TNode>): TNode[] {
+        var result = [];
+        this.nodes.forEach((key, value) => {
+            if (f(value)) {
+                result.push(value)
+            }
+        });
+        return result;
     }
 
     hasVertex(v: TNode): boolean {
         return this.adjacencyList.containsKey(v.id);
     }
-
-    private doesEdgeExist(v1: TNode, v2: TNode): boolean {
-        return this.adjacencyList[v1.id].indexOf( x => x.target.id === v2.id);
-    }
-
 
     hasEdge(source: TNode, target: TNode): boolean {
         return (this.adjacencyList.containsKey(source.id)
@@ -46,7 +77,7 @@ export class SparseDirectedGraph<TNode extends INode, TEdgeData>  {
             && this.doesEdgeExist(source, target));
     }
 
-    addEdge(source: TNode, target: TNode, edgeData: TEdgeData): boolean {
+    addEdge(source: TNode, target: TNode, edgeData: TEdge): boolean {
         if (!this.hasVertex(source) || !this.hasVertex(target)) {
             return false;
         }
@@ -55,21 +86,36 @@ export class SparseDirectedGraph<TNode extends INode, TEdgeData>  {
             return false;
         }
 
-        this.adjacencyList[source.id].add(new DataEdge(target, edgeData));
+        var edge = new Relation(source, target, edgeData);
+        this.adjacencyList.getValue(source.id).add(edge);
+        this.adjacencyListInverse.getValue(target.id).add(edge)
+
         this.edgesCount++;
 
         return true;
     }
 
-}
+    findOrDefault(f: Predicate<TNode>): TNode {
+        var a = this.find(f);
 
+        if (a.length > 0) {
+            return a[0];
+        }
+
+        return null;
+    }
+
+    private doesEdgeExist(v1: TNode, v2: TNode): boolean {
+        return this.neighbours(v1).indexOf(v2) >= 0;
+    }
+}
 
 interface INode {
- id: number;
+    id: number;
 }
 
-class DataEdge<TNode, TEdgeData> {
-    constructor(public node: TNode, public edgeData: TEdgeData) {
+class Relation<TNode, TEdge> {
+    constructor(public from: TNode, public to: TNode, public edge: TEdge) {
 
     }
 }
