@@ -1,44 +1,59 @@
 import { SparseDirectedGraph } from './graph';
 
-export const DEPS =
+class Entry {
+    constructor(
+        public id: number,
+        public name: string,
+        public type: string,
+        public usesEdgeTo: number[],
+        public containsEdgeTo: number[]) {
+
+    }
+}
+
+const DEPS =
     [
-        { id: 1, "name": "Graphs", edgeTo: [40], type: "service" },
-        { id: 2, "name": "Table", edgeTo: [40], type: "service" },
-        { id: 3, "name": "ADCP", edgeTo: [40], type: "service" },
-        { id: 4, "name": "Admin FPS", edgeTo: [40], type: "service" },
-        { id: 5, "name": "Admin MVC", edgeTo: [40], type: "service" },
-        { id: 6, "name": "Asset Overview", edgeTo: [40], type: "service" },
-        { id: 7, "name": "CMS Admin", edgeTo: [40], type: "service" },
-        { id: 8, "name": "Warning", edgeTo: [40], type: "service" },
-        { id: 9, "name": "WebClient", edgeTo: [40], type: "service" },
-        { id: 10, "name": "SubDel", edgeTo: [40], type: "service" },
-        { id: 11, "name": "WebApi", edgeTo: [40], type: "service" },
-        { id: 12, "name": "Tables And Graphs", edgeTo: [40], type: "service" },
-        { id: 13, "name": "Tropical", edgeTo: [40], type: "service" },
-        { id: 14, "name": "Tides", edgeTo: [40], type: "service" },
+        new Entry(1, 'Graphs', 'service', [40], []),
+        new Entry(2, 'Table', 'service', [40], []),
+        new Entry(3, 'ADCP', 'service', [40], []),
+        new Entry(4, 'Admin FPS', 'service', [40], []),
+        new Entry(5, 'Admin MVC', 'service', [40], []),
+        new Entry(6, 'Asset Overview', 'service', [40], []),
+        new Entry(7, 'CMS Admin', 'service', [40], []),
+        new Entry(8, 'Warning', 'service', [40], []),
+        new Entry(9, 'WebClient', 'service', [40], []),
+        new Entry(10, 'SubDel', 'service', [40], []),
+        new Entry(11, 'WebApi', 'service', [800], [40]),
+        new Entry(12, 'Tables And Graphs', 'service', [40], []),
+        new Entry(13, 'Tropical', 'service', [40], []),
+        new Entry(14, 'Tides', 'service', [40], []),
 
-        { id: 40, "name": "MetOcean.Core", edgeTo: [50], type: "lib" },
-        { id: 50, "name": "WOD", edgeTo: [600, 700, 800], type: "lib" },
+        new Entry(40, 'MetOcean.Core', 'lib', [50], []),
+        new Entry(50, 'Wod', 'lib', [600, 700, 800], []),
 
-        { id: 600, "name": "D2 Lx", edgeTo: [], type: "db" },
-        { id: 700, "name": "CorrectedDb Lx", edgeTo: [], type: "db" },
-        { id: 800, "name": "Observation Lx", edgeTo: [], type: "db" },
-    ]
+        new Entry(600, 'D2 Lx', 'db', [], []),
+        new Entry(700, 'CorrectedDb Lx', 'db', [], []),
+        new Entry(800, 'Observation Lx', 'db', [], [])
+    ];
 
 
 export function getGraph(): SparseDirectedGraph<Node, Edge> {
 
-    var g = new SparseDirectedGraph<Node, Edge>();
+    const g = new SparseDirectedGraph<Node, Edge>();
+    const map = {};
 
-    var map = {};
     DEPS.forEach(x => {
-        map[x.id] = new Node(x.id, x.name, x.type)
+        map[x.id] = new Node(x.id, x.name, x.type);
         g.addVertex(map[x.id]);
     });
 
     DEPS.forEach(x => {
-        x.edgeTo.forEach(y => {
-            g.addEdge(map[x.id], map[y], new Edge("uses"))
+        x.usesEdgeTo.forEach(y => {
+            g.addEdge(map[x.id], map[y], new Edge('uses'));
+        });
+
+        x.containsEdgeTo.forEach(y => {
+            g.addEdge(map[x.id], map[y], new Edge('contains'));
         });
     });
 

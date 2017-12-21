@@ -4,7 +4,8 @@
     padding:1px; 
     border:solid 2px transparent;
     background-color:white; 
-    width:200px; 
+    width:100%;
+    min-width: 100px;
     position:relative;
     border-radius: 4px;
 }

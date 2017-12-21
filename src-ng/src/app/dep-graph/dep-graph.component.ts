@@ -21,9 +21,9 @@ export class DepGraphComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.deps = this.gs.getDeps();
+    this.deps = this.gs.getDependencies();
 
-    var diameter = 900,
+    var diameter = 600,
       radius = diameter / 2,
       innerRadius = radius - 120;
 

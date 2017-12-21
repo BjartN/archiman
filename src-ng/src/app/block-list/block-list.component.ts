@@ -14,7 +14,7 @@ export class BlockListComponent implements OnInit {
 
   constructor(gs: GraphService) {
     this.gs = gs;
-    this.blocks = gs.getTree();
+    this.blocks = gs.getNestedBlocks();
   }
 
   ngOnInit() { }

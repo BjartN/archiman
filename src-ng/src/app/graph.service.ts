@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Block } from './block';
-import { DEPS, getGraph, Node, Edge, TreeNode } from './mock-flare';
+import { Node, Edge, TreeNode, getGraph } from './mock-flare';
 import { SparseDirectedGraph } from './graph';
 
 @Injectable()
@@ -10,24 +10,26 @@ export class GraphService {
 
   constructor() {
     this.graph = getGraph();
+
   }
 
   addLink(from: number, to: number) {
     this.graph.addEdge(
-      this.graph.findOrDefault(x => x.id == from),
-      this.graph.findOrDefault(x => x.id == to),
-      new Edge("uses"));
+      this.graph.findOrDefault(x => x.id === from),
+      this.graph.findOrDefault(x => x.id === to),
+      new Edge('uses'));
   }
 
-  /** Get tree of "uses" relation. **/
-  getTree(): Block[] {
-    return this.graph.find(x => true).map(x => new Block(x.id, x.name));
+  getNestedBlocks(): Block[] {
+    return this
+      .graph.find(x => true)
+      .map(x => new Block(x.id, x.name));
   }
 
-  getDeps(): TreeNode[] {
-    var result = this.graph
+  getDependencies(): TreeNode[] {
+    const result = this.graph
       .find(x => true)
-      .map(x => new TreeNode(x.id, x.type, x.name, this.graph.neighbours(x).map(x => x.id)));
+      .map(x => new TreeNode(x.id, x.type, x.name, this.graph.neighbours(x).map(y => y.id)));
 
     return result;
   }
