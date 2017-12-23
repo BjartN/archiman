@@ -1,5 +1,4 @@
-import { SparseDirectedGraph } from './graph';
-import { Node, Edge } from './graph.service';
+import { Node, Edge, SparseDirectedGraph } from './model';
 
 class Entry {
     constructor(

@@ -1,5 +1,8 @@
 
 import * as Collections from 'typescript-collections';
+import {INode} from './node';
+import {Relation} from './relation';
+import {Tree} from './tree';
 
 export type Predicate<T> = (n: T) => boolean;
 
@@ -149,25 +152,8 @@ export class SparseDirectedGraph<TNode extends INode, TEdge>  {
     }
 }
 
-interface INode {
-    id: number;
-}
 
-class Relation<TNode, TEdge> {
-    constructor(public from: TNode, public to: TNode, public edge: TEdge) {
 
-    }
-}
 
-export class Tree<T> {
 
-    constructor(public node: T, public children = new Array<Tree<T>>()) {
 
-    }
-}
-
-export class TreeNode {
-    constructor(public id: number, public type: string, public name: string, public edgeTo: number[]) {
-
-    }
-}

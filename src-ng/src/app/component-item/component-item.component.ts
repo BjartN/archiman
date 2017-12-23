@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Tree } from '../graph';
-import { Node, Edge } from '../graph.service';
+import { Tree, Node, Edge } from '../model';
 
 @Component({
   selector: 'app-component-item',

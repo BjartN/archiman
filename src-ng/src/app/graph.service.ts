@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Block } from './block';
+import {Edge, TreeNode, SparseDirectedGraph, Tree, Node } from './model';
 import { getGraph } from './mock-flare';
-import { SparseDirectedGraph, TreeNode, Tree } from './graph';
 
 @Injectable()
 export class GraphService {
@@ -35,18 +34,3 @@ export class GraphService {
     return result;
   }
 }
-
-
-export class Node {
-  constructor(public id: number, public name: string, public type: string) {
-
-  }
-}
-
-export class Edge {
-  constructor(public type: string) {
-
-  }
-}
-
-

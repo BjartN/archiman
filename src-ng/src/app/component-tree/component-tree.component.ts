@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphService, Node, Edge } from '../graph.service';
-import { Tree } from '../graph';
+import { GraphService} from '../graph.service';
+import { Tree, Node, Edge } from '../model';
 
 @Component({
   selector: 'app-component-tree',
