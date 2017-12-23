@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { BlockListComponent } from './block-list/block-list.component';
-import { BlockComponent } from './block/block.component';
+import { ComponentTreeComponent } from './component-tree/component-tree.component';
+import { ComponentItemComponent } from './component-item/component-item.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { GraphService } from './graph.service';
 import { DepGraphComponent } from './dep-graph/dep-graph.component';
@@ -12,8 +12,8 @@ import { DepBuilderComponent } from './dep-builder/dep-builder.component';
 @NgModule({
   declarations: [
     AppComponent,
-    BlockListComponent,
-    BlockComponent,
+    ComponentTreeComponent,
+    ComponentItemComponent,
     DepGraphComponent,
     DepBuilderComponent
   ],
@@ -23,7 +23,7 @@ import { DepBuilderComponent } from './dep-builder/dep-builder.component';
     RouterModule.forRoot([
       { path: '', component: DepBuilderComponent },
       { path: 'dep', component: DepGraphComponent }
-      //{ path: '**', component: NotFoundComponent }
+      // { path: '**', component: NotFoundComponent }
     ])
   ],
   providers: [

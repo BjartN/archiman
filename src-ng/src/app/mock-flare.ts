@@ -1,4 +1,5 @@
 import { SparseDirectedGraph } from './graph';
+import { Node, Edge } from './graph.service';
 
 class Entry {
     constructor(
@@ -7,7 +8,6 @@ class Entry {
         public type: string,
         public usesEdgeTo: number[],
         public containsEdgeTo: number[]) {
-
     }
 }
 
@@ -60,20 +60,3 @@ export function getGraph(): SparseDirectedGraph<Node, Edge> {
     return g;
 }
 
-export class Node {
-    constructor(public id: number, public name: string, public type: string) {
-
-    }
-}
-
-export class Edge {
-    constructor(public type: string) {
-
-    }
-}
-
-export class TreeNode {
-    constructor(public id: number, public type: string, public name: string, public edgeTo: number[]) {
-
-    }
-}

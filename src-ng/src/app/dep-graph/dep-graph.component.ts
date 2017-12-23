@@ -71,21 +71,21 @@ export class DepGraphComponent implements OnInit {
 
   /** Make a 3 deep three where leaf nodes are the blocks, and middle nodes are the types of each block  **/
   makeHierarchy(data) {
-    var groups = this.groupBy(data, x => x.type)
-    var i = -10;
+    const groups = this.groupBy(data, x => x.type);
+    let i = -10;
 
-    var nodes = [];
+    const nodes = [];
 
-    for (var key in groups) {
+    for (const key in groups) {
       if (groups.hasOwnProperty(key)) {
         nodes.push({
           id: i++,
           children: groups[key]
-        })
+        });
       }
     }
 
-    var h = d3.hierarchy({
+    const h = d3.hierarchy({
       id: -1,
       children: nodes
     });
@@ -94,16 +94,16 @@ export class DepGraphComponent implements OnInit {
   }
 
   makeLink(root) {
-    var all = root.leaves();
-    var map = {};
-    all.forEach(x => { map[x.data.id] = x });
+    const all = root.leaves();
+    const map = {};
+    all.forEach(x => { map[x.data.id] = x; });
 
-    var r = [];
+    const r = [];
 
     all.forEach(x => {
       x.data.edgeTo.forEach(id => {
         r.push(x.path(map[id]));
-      })
+      });
     });
 
     return r;

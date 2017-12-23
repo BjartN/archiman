@@ -1,0 +1,5 @@
+<ul>
+  <li *ngFor="let c of treeNode.children" class="ui list">
+    <app-component-item [node]="c.node" (droppedBlock)="droppedBlockHandler(c.node.id,$event)"></app-component-item>
+  </li>
+</ul>

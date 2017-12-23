@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BlockComponent } from './block.component';
+import { ComponentTreeComponent } from './component-tree.component';
 
-describe('BlockComponent', () => {
-  let component: BlockComponent;
-  let fixture: ComponentFixture<BlockComponent>;
+describe('BlockListComponent', () => {
+  let component: ComponentTreeComponent;
+  let fixture: ComponentFixture<ComponentTreeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlockComponent ]
+      declarations: [ ComponentTreeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BlockComponent);
+    fixture = TestBed.createComponent(ComponentTreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

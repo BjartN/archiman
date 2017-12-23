@@ -1,0 +1,8 @@
+<div 
+    [dragData]="node.id" 
+    class="block" 
+    draggable droppable [dragOverClass]="'drag-target-border'" 
+    (onDrop)="onDropped($event)">
+
+<i class="folder icon"></i>{{node.name}}
+</div>
